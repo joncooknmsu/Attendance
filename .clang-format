@@ -1,0 +1,24 @@
+---
+Language:        Cpp
+BasedOnStyle:  LLVM
+# JEC Customizations 
+AccessModifierOffset: -3
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Inline
+BraceWrapping:   
+  AfterClass:      true
+  AfterFunction:   true
+  AfterNamespace:  true
+BreakBeforeBraces: Linux
+ConstructorInitializerIndentWidth: 6
+ContinuationIndentWidth: 6
+IndentWidth:     4
+PointerAlignment: Left
+ReflowComments:  false
+TabWidth:        4
+# These options are for more recent versions
+# AllowShortEnumsOnASingleLine: true
+# EmptyLineAfterAccessModifier: Never
+# EmptyLineBeforeAccessModifier: Never
+# LineEnding: LF
+...
