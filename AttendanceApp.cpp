@@ -2,6 +2,7 @@
 #include "Roster.h"
 #include "atticon.xpm"
 #include <FL/Fl_Pixmap.H>
+#include <FL/Fl_Box.H>
 #include <FL/Fl_RGB_Image.H>
 
 bool AttendanceApp::markStudent(bool attend)
@@ -36,15 +37,22 @@ void AttendanceApp::createWindow(int argc, char* argv[])
     // labelsize(34); // seems not to inherit
     // begin window sub-components
     begin();
-    calleeName = new Fl_Output(30, 20, 340, 50, 0);
+    Fl_Box* dateLabel = new Fl_Box(30,20,80,50,"Date:");
+    dateLabel->labelfont(FL_HELVETICA);
+    dateLabel->labelsize(26);
+    curDate = new Fl_Output(140, 20, 220, 50, 0);
+    curDate->value("10/10/2026");
+    curDate->textfont(FL_HELVETICA);
+    curDate->textsize(26);
+    calleeName = new Fl_Output(30, 80, 340, 50, 0);
     //calleeName->value("   choose next");
     calleeName->textfont(FL_HELVETICA_BOLD);
     calleeName->textsize(28);
     //nextCallee = new NewStudentButton(this, 125, 100, 150, 40, "Next Callee");
     //nextCallee->labelsize(24);
-    attendHere = new AttendButton(this, true, 30, 90, 330, 40, "Here");
+    attendHere = new AttendButton(this, true, 30, 150, 330, 40, "Here");
     attendHere->labelsize(24);
-    attendAbsent = new AttendButton(this, false, 30, 150, 330, 40, "Absent");
+    attendAbsent = new AttendButton(this, false, 30, 210, 330, 40, "Absent");
     attendAbsent->labelsize(24);
     // declare the drawing area to be resizable
     // mainWindow.resizable(drawer);
