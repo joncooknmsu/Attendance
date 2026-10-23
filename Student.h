@@ -15,6 +15,7 @@ class Student
  public:
     Student(const std::string dataString);
     const std::string displayString() const;
+    const std::string attendanceString() const;
     int calls() const;
     const std::string saveString() const;
     bool countResponse(bool attend);

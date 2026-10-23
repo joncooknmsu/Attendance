@@ -19,7 +19,8 @@ Student::Student(const std::string dataString)
         numAbsences = std::stoi(datum);
     //std::cerr << "----\n";
     while (std::getline(dstream, datum, ',')) {
-        if (datum.length() < 1) break;
+        if (datum.length() < 1)
+            break;
         //std::cerr << "datef: (" << datum << ")\n";
         bool att = std::stoi(datum);
         attends.push_back(att);
@@ -31,6 +32,15 @@ const std::string Student::displayString() const
     return name;
 }
 
+const std::string Student::attendanceString() const
+{
+    std::string att;
+    for (int i : attends) {
+        att += std::to_string(i);
+    }
+    return att;
+}
+
 int Student::calls() const
 {
     return numAttends;
@@ -40,8 +50,8 @@ const std::string Student::saveString() const
 {
     std::string ret;
     ret = name + "," + std::to_string(numAttends) + "," +
-           std::to_string(numAbsences); // + "," + std::to_string(avgScore);
-    for (int i: attends) {
+          std::to_string(numAbsences); // + "," + std::to_string(avgScore);
+    for (int i : attends) {
         ret += "," + std::to_string(i);
     }
     return ret;
