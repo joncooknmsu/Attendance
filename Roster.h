@@ -15,6 +15,7 @@ class Roster
     bool addStudent(Student* student);
     Student* selectStudent();
     void callOccurred();
+    void addAttendDate(std::string date);
     void saveRoster(const std::string& filename = "_loadfile_") const;
     bool loadFile(const std::string& filename);
 
@@ -24,6 +25,7 @@ class Roster
     int totalCalls = 0;
     unsigned int callIndex = 0;
     std::string dataFilename;
+    std::vector<std::string> columnNames{};
 };
 
 #endif // ROSTER_H

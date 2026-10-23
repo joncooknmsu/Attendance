@@ -6,8 +6,8 @@
 //#include <fstream>
 //#include <iostream>
 #include <string>
+#include <vector>
 //#include <sstream>
-//#include <vector>
 //#include <random>
 
 class Student
@@ -24,6 +24,7 @@ class Student
     int numAttends;
     int numAbsences;
     float avgScore;
+    std::vector<bool> attends{};
 };
 
 #endif // STUDENT_H

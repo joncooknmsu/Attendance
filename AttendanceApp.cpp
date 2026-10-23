@@ -1,6 +1,8 @@
 #include "AttendanceApp.h"
 #include "Roster.h"
 #include "atticon.xpm"
+#include <ctime>
+#include <FL/Fl_Pack.H>
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_RGB_Image.H>
@@ -22,12 +24,17 @@ bool AttendanceApp::markStudent(bool attend)
 
 bool AttendanceApp::selectNewStudent()
 {
+    static bool saved = false;
     curStudent = roster.selectStudent();
     if (curStudent)
         calleeName->value(curStudent->displayString().c_str());
     else {
-        calleeName->value("All Done!");
-        roster.saveRoster();
+        if (!saved) {
+            calleeName->value("All Done!");
+            roster.addAttendDate(curDate->value());
+            roster.saveRoster();
+            saved = true;
+        }
     }
     return true;
 }
@@ -37,27 +44,39 @@ void AttendanceApp::createWindow(int argc, char* argv[])
     // labelsize(34); // seems not to inherit
     // begin window sub-components
     begin();
-    Fl_Box* dateLabel = new Fl_Box(30,20,80,50,"Date:");
+    Fl_Pack* mainPack = new Fl_Pack(10,5,380,270);
+    mainPack->spacing(5);
+    mainPack->begin();
+    Fl_Pack* datePack = new Fl_Pack(0,0,380,60);
+    datePack->type(Fl_Pack::HORIZONTAL);
+    datePack->spacing(10);
+    datePack->begin();
+    Fl_Box* dateLabel = new Fl_Box(0,0,80,0,"Date:");
     dateLabel->labelfont(FL_HELVETICA);
     dateLabel->labelsize(26);
-    curDate = new Fl_Output(140, 20, 220, 50, 0);
-    curDate->value("10/10/2026");
+    curDate = new Fl_Input(0,0,200,0,0);
+    //curDate->value("10/10/2026");
+    std::time_t tnow = std::time(0);
+    std::tm* now = std::gmtime(&tnow);
+    char cdate[36];
+    std::strftime(cdate,sizeof(cdate),"%m/%d/%Y",now);
+    curDate->value(cdate);
     curDate->textfont(FL_HELVETICA);
     curDate->textsize(26);
-    calleeName = new Fl_Output(30, 80, 340, 50, 0);
+    datePack->end();
+    calleeName = new Fl_Output(0,0,0,50,0);
     //calleeName->value("   choose next");
     calleeName->textfont(FL_HELVETICA_BOLD);
     calleeName->textsize(28);
-    //nextCallee = new NewStudentButton(this, 125, 100, 150, 40, "Next Callee");
-    //nextCallee->labelsize(24);
-    attendHere = new AttendButton(this, true, 30, 150, 330, 40, "Here");
+    attendHere = new AttendButton(this, true, 0, 0, 0, 40, "Here");
     attendHere->labelsize(24);
-    attendAbsent = new AttendButton(this, false, 30, 210, 330, 40, "Absent");
+    attendAbsent = new AttendButton(this, false, 0, 0, 0, 40, "Absent");
     attendAbsent->labelsize(24);
     // declare the drawing area to be resizable
     // mainWindow.resizable(drawer);
     // end window sub-components
-    end();
+    mainPack->end();
+    end(); // end window components
     // set window icon?
     Fl_Pixmap attend_xpm_icon(atticon_xpm);
     Fl_RGB_Image attend_icon(&attend_xpm_icon, Fl_Color(0));

@@ -2,6 +2,7 @@
 // Student class
 //
 #include "Student.h"
+#include <iostream>
 #include <sstream>
 
 Student::Student(const std::string dataString)
@@ -16,8 +17,13 @@ Student::Student(const std::string dataString)
         numAttends = std::stoi(datum);
     if (std::getline(dstream, datum, ','))
         numAbsences = std::stoi(datum);
-    if (std::getline(dstream, datum, ','))
-        avgScore = std::stof(datum);
+    //std::cerr << "----\n";
+    while (std::getline(dstream, datum, ',')) {
+        if (datum.length() < 1) break;
+        //std::cerr << "datef: (" << datum << ")\n";
+        bool att = std::stoi(datum);
+        attends.push_back(att);
+    }
 }
 
 const std::string Student::displayString() const
@@ -32,12 +38,18 @@ int Student::calls() const
 
 const std::string Student::saveString() const
 {
-    return name + "," + std::to_string(numAttends) + "," +
-           std::to_string(numAbsences) + "," + std::to_string(avgScore);
+    std::string ret;
+    ret = name + "," + std::to_string(numAttends) + "," +
+           std::to_string(numAbsences); // + "," + std::to_string(avgScore);
+    for (int i: attends) {
+        ret += "," + std::to_string(i);
+    }
+    return ret;
 }
 
 bool Student::countResponse(bool attend)
 {
+    attends.push_back(attend);
     if (attend)
         numAttends++;
     else

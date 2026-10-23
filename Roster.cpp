@@ -31,6 +31,11 @@ void Roster::callOccurred()
     totalCalls++;
 }
 
+void Roster::addAttendDate(std::string date)
+{
+    columnNames.push_back(date);
+}
+
 void Roster::saveRoster(const std::string& filename) const
 {
     std::string usedFilename = filename;
@@ -38,7 +43,16 @@ void Roster::saveRoster(const std::string& filename) const
         usedFilename = dataFilename;
     }
     std::ofstream dataf(usedFilename);
-    dataf << "Student,Calls,Absences,AvgScore\n";
+    //dataf << "Student,Attends,Absences,";
+    bool first = true;
+    for (auto d: columnNames) {
+        if (!first)
+            dataf << ",";
+        else
+            first = false;
+        dataf << d;
+    }
+    dataf << "\n";
     for (auto student : roster) {
         dataf << student->saveString() << "\n";
     }
@@ -49,9 +63,16 @@ bool Roster::loadFile(const std::string& filename)
     dataFilename = filename;
     std::ifstream dataf(filename);
     std::string line;
-    int isFirstLine = true;
     if (!dataf)
         return false;
+    // extract date columns from first line
+    std::getline(dataf, line);
+    std::istringstream dstream(line);
+    std::string datum;
+    while (std::getline(dstream, datum, ',')) {
+        if (datum.length() < 2) break;
+        columnNames.push_back(datum);
+    }
     while (std::getline(dataf, line)) {
         // std::cout << "line is [" << line << "]\n";
         if (line.length() < 2)
@@ -63,10 +84,6 @@ bool Roster::loadFile(const std::string& filename)
             // std::cout << "  piece [" << piece << "]\n";
         }
         **/
-        if (isFirstLine) {
-            isFirstLine = false;
-            continue;
-        }
         auto student = new Student(line);
         // std::cout << "student is [" << student->saveString() << "]\n";
         addStudent(student);

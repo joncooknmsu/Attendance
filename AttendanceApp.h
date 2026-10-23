@@ -25,7 +25,7 @@ class AttendanceApp : public Fl_Window
  private:
     Roster& roster;
     Student* curStudent;
-    Fl_Output* curDate;
+    Fl_Input* curDate;
     Fl_Output* calleeName;
     //Fl_Button* nextCallee;
     AttendButton* attendHere;
