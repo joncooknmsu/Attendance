@@ -48,10 +48,10 @@ void AttendanceApp::createWindow(int argc, char* argv[])
     // labelsize(34); // seems not to inherit
     // begin window sub-components
     begin();
-    Fl_Pack* mainPack = new Fl_Pack(10, 5, 380, 270);
+    Fl_Pack* mainPack = new Fl_Pack(10, 5, 380, 0);
     mainPack->spacing(5);
     mainPack->begin();
-    Fl_Pack* datePack = new Fl_Pack(0, 0, 380, 60);
+    Fl_Pack* datePack = new Fl_Pack(0, 0, 380, 50);
     datePack->type(Fl_Pack::HORIZONTAL);
     datePack->spacing(10);
     datePack->begin();
@@ -63,7 +63,8 @@ void AttendanceApp::createWindow(int argc, char* argv[])
     std::time_t tnow = std::time(0);
     std::tm* now = std::gmtime(&tnow);
     char cdate[36];
-    std::strftime(cdate, sizeof(cdate), "%m/%d/%Y", now);
+    //std::strftime(cdate, sizeof(cdate), "%m/%d/%Y", now);
+    std::strftime(cdate, sizeof(cdate), "%m/%d", now);
     curDate->value(cdate);
     curDate->textfont(FL_HELVETICA);
     curDate->textsize(26);
@@ -77,17 +78,17 @@ void AttendanceApp::createWindow(int argc, char* argv[])
     attendAbsent = new AttendButton(this, false, 0, 0, 0, 40, "Absent");
     attendAbsent->labelsize(24);
     // list of attendance values
-    Fl_Pack* attPack = new Fl_Pack(0, 0, 380, 60);
+    Fl_Pack* attPack = new Fl_Pack(0, 0, 380, 35);
     attPack->type(Fl_Pack::HORIZONTAL);
     attPack->spacing(10);
     attPack->begin();
-    Fl_Box* attLabel = new Fl_Box(0, 0, 140, 0, "Attendance:");
+    Fl_Box* attLabel = new Fl_Box(0, 0, 50, 0, "Att:");
     attLabel->labelfont(FL_HELVETICA);
     attLabel->labelsize(24);
-    attendanceView = new Fl_Output(0, 0, 220, 0, 0);
+    attendanceView = new Fl_Output(0, 0, 315, 0, 0);
     attendanceView->value("nothing yet");
     attendanceView->textfont(FL_HELVETICA);
-    attendanceView->textsize(24);
+    attendanceView->textsize(22);
     attPack->end();
     // declare the drawing area to be resizable
     // mainWindow.resizable(drawer);

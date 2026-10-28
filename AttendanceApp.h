@@ -15,7 +15,7 @@ class AttendanceApp : public Fl_Window
  public:
     AttendanceApp(Roster& roster)
           : // create a GUI window object
-            Fl_Window{400, 280, "Attendanc-er"}, roster{roster}, curStudent{0}
+            Fl_Window{400, 250, "Attendanc-er"}, roster{roster}, curStudent{0}
     {    }
     const char* callee() { return calleeName->value(); }
     void createWindow(int argc, char* argv[]);

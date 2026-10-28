@@ -35,9 +35,12 @@ const std::string Student::displayString() const
 const std::string Student::attendanceString() const
 {
     std::string att;
+    char yn[] = {'n','y'};
     for (int i : attends) {
-        att += std::to_string(i);
+        //att += std::to_string(i);
+        att += yn[i];
     }
+    att += " absent:" + std::to_string(numAbsences);
     return att;
 }
 
