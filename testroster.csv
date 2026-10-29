@@ -1,9 +1,9 @@
-Student,Attends,Absences,10/14/2026,10/19/2026
-John Wayne,2,0,1,1
-Rex Allen,0,2,0,0
-Majel Barrett,1,1,0,1
-Johnny Carson,1,1,1,0
-Lucille Ball,2,0,1,1
-Denzel Washinton,0,2,0,0
-Tom Hanks,1,1,1,0
-Angelina Jolie,1,1,0,1
+Student,Attends,Absences,10/14/2026,10/19/2026,10/28/2026,10/27/2026,10/28/2026
+John Wayne,4,1,1,1,1,0,1
+Rex Allen,1,4,0,0,0,0,1
+Majel Barrett,3,2,0,1,1,0,1
+Johnny Carson,2,3,1,0,0,0,1
+Lucille Ball,4,1,1,1,1,0,1
+Denzel Washinton,1,4,0,0,0,0,1
+Tom Hanks,3,2,1,0,1,0,1
+Angelina Jolie,2,3,0,1,0,0,1
